@@ -11,24 +11,44 @@ function fetchData(city){
  // Here we are building the URL we need to query the database
  
  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=" + APIKey;
+ var oneCallUrl = "https://api.openweathermap.org/data/2.5/onecall?"
+ 
 
  // We then created an AJAX call
  $.ajax({
    url: queryURL,
    method: "GET"
- }).then(function(response) {
-     console.log(response);
-     var lat = response.coord.lat;
-     var lon = response.coord.lon ;
-     console.log("City : " + response.name);
+ }).then(function(responseFirst) {
+     console.log(responseFirst);
+     var lat = responseFirst.coord.lat;
+     var lon = responseFirst.coord.lon;
+     //https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&exclude=hourly,daily&appid={YOUR API KEY}
+     var oneCallFullUrl = oneCallUrl+"lat="+lat+"&lon="+lon+"&exclude=hourly,minutely&units=imperial&appid="+APIKey;
+      $.ajax({
+         url: oneCallFullUrl,
+         method: "GET"}).then(function(response){
+            console.log(response);
+            console.log("City : " + responseFirst.name);
 
-     var temp = (response.main.temp - 273.15) * 1.80 +32;
-     console.log("Temperature: " + temp);
-     document.getElementById('currentTemp').innerHTML = "Temprature: " + Math.round(temp * 10) / 10 + " F"
-     console.log("Humidity:" + response.main.humidity);
-     document.getElementById('currentHumidity').innerHTML = "Humidity: " + Math.round(response.main.humidity) + "%"
-     console.log("Wind Speed:" + response.wind.speed);
-     document.getElementById('currentWind').innerHTML = "Wind Speed: " + Math.round(response.wind.speed) + " MPH"
+            var temp = (response.current.temp);
+            console.log("Temperature: " + temp);
+            document.getElementById('currentTemp').innerHTML = "Temprature: " + temp + " F";
+
+            var humidity = response.current.humidity;
+            console.log("Humidity:" + humidity);
+            document.getElementById('currentHumidity').innerHTML = "Humidity: " + humidity + "%";
+
+            var windSpeed = response.current.wind_speed;
+            console.log("Wind Speed:" +windSpeed);
+            document.getElementById('currentWind').innerHTML = "Wind Speed: " + windSpeed + " MPH";
+
+            var uvi = response.current.uvi;
+            console.log("uvi:" +uvi);
+            document.getElementById('currentUv').innerHTML = "UV Index: " + uvi;
+
+      });
+    
+
    // Create CODE HERE to Log the queryURL
    // Create CODE HERE to log the resulting object
    // Create CODE HERE to calculate the temperature (converted from Kelvin)
