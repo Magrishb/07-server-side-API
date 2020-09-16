@@ -3,8 +3,7 @@
     height: 100%; /* Full-height: remove this if you want "auto" height */
     width: 275px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-    z-index: 1; /* Stay on top */
-    top: 5; /* Stay at the top */
+    z-index: 100; /* Stay on top */
     text-align: center;
     align-content: center;
     background-color: rgb(241, 241, 241); /* Black */
@@ -14,7 +13,16 @@
     padding-right: 10px;
   }
 
-.card {
+/* .card {
     margin-left: 35%;
+} */
+
+.main {
+  margin-left: 275px;
+}
+
+.custom-card {
+  background-color: rgb(37, 118, 223);
+  
 }
   

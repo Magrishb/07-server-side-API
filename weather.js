@@ -54,7 +54,7 @@ function fetchData(city){
 
             var temp = (response.current.temp);
             console.log("Temperature: " + temp);
-            document.getElementById('currentTemp').innerHTML = "Temprature: " + temp + " F";
+            document.getElementById('currentTemp').innerHTML = "Temprature: " + temp + " &#8457;";
 
             var humidity = response.current.humidity;
             console.log("Humidity:" + humidity);
@@ -67,6 +67,24 @@ function fetchData(city){
             var uvi = response.current.uvi;
             console.log("uvi:" +uvi);
             document.getElementById('currentUv').innerHTML = "UV Index: " + uvi;
+            var cards = "";
+            for(var i=0;i<5;i++){
+              var daily_dt = response.daily[i].dt;
+              var daily_temp = response.daily[i].temp.day;
+              var daily_humidity = response.daily[i].humidity;
+              var daily_icon = response.daily[i].weather[0].icon;
+              var daily_iconUrl = "http://openweathermap.org/img/wn/"+daily_icon+".png";
+              var dailt_formattedDate = convertTimeStampToDate(daily_dt);
+              cards = cards + getCardHtml(dailt_formattedDate,daily_iconUrl,daily_temp, daily_humidity);
+
+            }
+           
+            //var firstCard = getCardHtml(currentDate,iconUrl,temp,humidity);
+            document.getElementById('forcast').innerHTML = cards;
+            //response.daily[0].dt
+            //response.daily[0].temp.day
+            //response.daily[0].humidity
+            //response.daily[0].weather[0].icon
 
       });
     
@@ -92,4 +110,17 @@ function convertTimeStampToDate(timestamp){
             var date = fullDate.getDate();
             var formattedDate = month+"/"+date+"/"+year;
             return formattedDate;
+}
+
+function getCardHtml(date,imageUrl,temperature, humidity){
+    var card = "<div class=\"card\"> ";
+    var cardBody = "<div class=\"card-body custom-card\">";
+    var cardText = "<p class=\"card-text\"><p>"+date+"</p>";
+    var image = "<p><img src=\""+imageUrl+"\"></p>";
+    var temp = "<p>Temp: "+temperature+" &#8457;</p> ";
+    var humidityText = "<p>Humidity: "+ humidity +" %</p>";
+    var closeCard = "</div></div>";
+    return card+cardBody+cardText+image+temp+humidityText+closeCard;
+                    
+    
 }
