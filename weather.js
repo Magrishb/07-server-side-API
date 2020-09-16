@@ -9,7 +9,8 @@ function fetchData(city){
  var APIKey = "d01bff4da718cbe55e0c2eef2de6c401";
 
  // Here we are building the URL we need to query the database
- var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Atlanta&appid=" + APIKey;
+ 
+ var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=" + APIKey;
 
  // We then created an AJAX call
  $.ajax({
@@ -20,6 +21,7 @@ function fetchData(city){
      console.log("City : " + response.name);
      var temp = (response.main.temp - 273.15) * 1.80 +32;
      console.log("Temperature: " + temp);
+     document.getElementById().innerHTML = "Current Temprature: " + 
      console.log("Humidity:" + response.main.humidity);
      console.log("Wind Speed:" + response.wind.speed);
    // Create CODE HERE to Log the queryURL
