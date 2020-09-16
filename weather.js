@@ -21,9 +21,11 @@ function fetchData(city){
      console.log("City : " + response.name);
      var temp = (response.main.temp - 273.15) * 1.80 +32;
      console.log("Temperature: " + temp);
-     document.getElementById().innerHTML = "Current Temprature: " + 
+     document.getElementById('currentTemp').innerHTML = "Temprature: " + Math.round(temp * 10) / 10 + " F"
      console.log("Humidity:" + response.main.humidity);
+     document.getElementById('currentHumidity').innerHTML = "Humidity: " + Math.round(response.main.humidity) + "%"
      console.log("Wind Speed:" + response.wind.speed);
+     document.getElementById('currentWind').innerHTML = "Wind Speed: " + Math.round(response.wind.speed) + " MPH"
    // Create CODE HERE to Log the queryURL
    // Create CODE HERE to log the resulting object
    // Create CODE HERE to calculate the temperature (converted from Kelvin)
