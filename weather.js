@@ -18,7 +18,10 @@ function fetchData(city){
    method: "GET"
  }).then(function(response) {
      console.log(response);
+     var lat = response.coord.lat;
+     var lon = response.coord.lon ;
      console.log("City : " + response.name);
+
      var temp = (response.main.temp - 273.15) * 1.80 +32;
      console.log("Temperature: " + temp);
      document.getElementById('currentTemp').innerHTML = "Temprature: " + Math.round(temp * 10) / 10 + " F"
