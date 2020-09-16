@@ -4,6 +4,11 @@ $(document).ready(function () {
 });
 
 function fetchData(city){
+    //var city = document.getElementById('search-term').value;
+    if(city === undefined || city.length ==0){
+        alert('Please enter/select a city name');
+        return;
+    }
     console.log("Fetching weather data for: " + city);
  // This is our API key. Add your own API key between the ""
  var APIKey = "d01bff4da718cbe55e0c2eef2de6c401";
