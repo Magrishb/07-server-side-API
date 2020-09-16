@@ -28,7 +28,24 @@ function fetchData(city){
          url: oneCallFullUrl,
          method: "GET"}).then(function(response){
             console.log(response);
-            console.log("City : " + responseFirst.name);
+
+            var dt = response.current.dt;
+            console.log("dt:"+dt);
+
+            var currentDate = (convertTimeStampToDate(dt));
+            console.log("currentDate: " + currentDate);
+            
+            var city = responseFirst.name;
+            console.log("City : " + responseFirst.name); 
+
+            var currentTempIcon = response.current.weather[0].icon;
+            var iconUrl = "http://openweathermap.org/img/wn/"+currentTempIcon+".png";
+            var temp1 = "<img src=\""+iconUrl+"\" alt=\"weather\">";
+            var currentHeader = city + " (" + currentDate + ") "+ temp1 ;
+            console.log(currentHeader)
+            document.getElementById('currentHeader').innerHTML = currentHeader ;
+            
+           
 
             var temp = (response.current.temp);
             console.log("Temperature: " + temp);
@@ -61,4 +78,13 @@ function fetchData(city){
  document.getElementById('main-container').style.display = "block";
 
 
+}
+
+function convertTimeStampToDate(timestamp){
+    var fullDate = new Date(timestamp * 1000);
+            var year = fullDate.getFullYear();
+            var month = fullDate.getMonth();
+            var date = fullDate.getDate();
+            var formattedDate = month+"/"+date+"/"+year;
+            return formattedDate;
 }
