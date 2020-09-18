@@ -23,6 +23,15 @@
 
 .custom-card {
   background-color: rgb(37, 118, 223);
-  
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+div.card{
+  border: none;
 }
   
+.form-control {
+  margin: 10px;
+}
+
