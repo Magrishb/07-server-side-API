@@ -1,14 +1,28 @@
 $(document).ready(function () {
     console.log("Document is ready!");
+    localStorage.setItem("searches","");
     
 });
 
-function fetchData(city){
+function fetchData(cityParam){
     //var city = document.getElementById('search-term').value;
-    if(city === undefined || city.length ==0){
+    if(cityParam === undefined || cityParam.length ==0){
         alert('Please enter/select a city name');
         return;
     }
+    var city = cityParam.toUpperCase();
+    var searches = localStorage.getItem("searches").split(",");
+    if(!searches.includes(city)) {
+      searches.push(city);
+    }
+    console.log(searches);
+    localStorage.setItem("searches", searches);
+    document.getElementById('searches').innerHTML = "";
+    for(var i=0;i<searches.length;i++){
+      if( searches[i] !== undefined && searches[i].length !=0) {
+      createSearchedItem(searches[i]);
+      }
+  }
     console.log("Fetching weather data for: " + city);
  // This is our API key. Add your own API key between the ""
  var APIKey = "d01bff4da718cbe55e0c2eef2de6c401";
@@ -123,4 +137,23 @@ function getCardHtml(date,imageUrl,temperature, humidity){
     return card+cardBody+cardText+image+temp+humidityText+closeCard;
                     
     
+}
+
+function createSearchedItem(item){
+
+  var button = document.createElement('button');
+  button.type = 'button';
+  button.innerHTML = item;
+  button.className = 'list-group-item list-group-item-action';
+
+  button.onclick = function() {
+    fetchData(item);
+  };
+
+  var container = document.getElementById('searches');
+  container.appendChild(button);
+
+ 
+                  
+  
 }
